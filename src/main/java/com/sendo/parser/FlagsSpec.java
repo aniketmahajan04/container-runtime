@@ -1,8 +1,7 @@
 package com.sendo.parser;
 
-import javax.xml.validation.Validator;
-
 public record FlagsSpec(String longName, String shortName, boolean takesValue, Validator validator) {
+
     public FlagsSpec {
         if (longName == null || longName.isBlank() || longName.startsWith("-") || longName.contains("=")) {
             throw new IllegalArgumentException("bad flag long name: '" + longName + "'");
@@ -15,6 +14,14 @@ public record FlagsSpec(String longName, String shortName, boolean takesValue, V
             if (!Character.isLetterOrDigit(shortName.charAt(0))) {
                 throw new IllegalArgumentException("bad short flag: '" + shortName + "'");
             }
+        }
+
+        if (validator == null) {
+            throw new IllegalArgumentException("--" + longName + "needs a validator");
+        }
+
+        if (takesValue == false) {
+            throw new IllegalArgumentException("boolean flag --" + longName + "cannot have value");
         }
     }
 }

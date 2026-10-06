@@ -1,7 +1,5 @@
 package com.sendo.parser;
 
-import javax.xml.validation.Validator;
-
 public record PositionalSpec(String name, Validator validator) {
 
     public PositionalSpec {
@@ -15,7 +13,7 @@ public record PositionalSpec(String name, Validator validator) {
     }
 
     public static PositionalSpec of(String name) {
-        return new PositionalSpec(name, Validator.);
+        return new PositionalSpec(name, Validator.ANY);
     }
 
 }

@@ -1,12 +1,15 @@
 package com.sendo.commands;
 
-public class Commands {
-    private Commands() {}
+import com.sendo.parser.CommandRegistry;
 
-    /*public static CommandRegistry defaultRegistry() {
+public final class Commands {
+    private Commands() {
+    }
+
+    public static CommandRegistry defaultRegistry() {
         CommandRegistry r = new CommandRegistry();
-        r.register(CreateCommand.SPEC);
+        r.register(CreateCommand.SPEC());
         return r;
-    }*/
+    }
 
 }

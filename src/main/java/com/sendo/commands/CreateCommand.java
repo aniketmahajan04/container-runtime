@@ -5,6 +5,10 @@ import java.util.List;
 import com.sendo.parser.CommandSpec;
 import com.sendo.parser.PositionalSpec;
 
+/**
+ * CreateCommand
+ * holds its specific specs
+ */
 public class CreateCommand {
 
     private CreateCommand() {

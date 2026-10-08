@@ -2,6 +2,7 @@ package com.sendo.parser;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -50,6 +51,10 @@ public record CommandSpec(String name, List<PositionalSpec> positionals, List<Fl
             }
         }
 
+    }
+
+    public Optional<FlagsSpec> findLong(String longName) {
+        return flags.stream().filter(f -> f.longName().equals(longName)).findFirst();
     }
 
 }

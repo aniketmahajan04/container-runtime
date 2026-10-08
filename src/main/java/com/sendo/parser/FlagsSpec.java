@@ -20,8 +20,9 @@ public record FlagsSpec(String longName, String shortName, boolean takesValue, V
             throw new IllegalArgumentException("--" + longName + "needs a validator");
         }
 
-        if (takesValue == false) {
-            throw new IllegalArgumentException("boolean flag --" + longName + "cannot have value");
-        }
+        // if (takesValue) {
+        // throw new IllegalArgumentException("boolean flag --" + longName + " cannot
+        // have value");
+        // }
     }
 }

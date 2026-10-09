@@ -55,8 +55,44 @@ public class ParserCommandTest {
 
         CommandSpec spec = new CommandSpec("create", List.of(), List.of(force));
 
-        ParsedCommand parsed = new ParsedCommand(spec, Map.of(), Map.of("force", ""));
+        ParsedCommand parsed = new ParsedCommand(spec, Map.of(), Map.of());
 
         assertFalse(parsed.flag("force"));
+    }
+
+    @Test
+    void shouldReturnFlagValue() {
+        FlagsSpec timeout = new FlagsSpec("timeout",
+                "t", true, Validator.ANY);
+
+        CommandSpec spec = new CommandSpec("create", List.of(), List.of(timeout));
+
+        ParsedCommand parsed = new ParsedCommand(spec, Map.of(), Map.of("timeout", "5"));
+
+        assertEquals("5",
+                parsed.flagValue("timeout").orElseThrow());
+    }
+
+    @Test
+    void shouldRejectValueFlagAsBoolean() {
+        FlagsSpec timeout = new FlagsSpec("timeout", "t", true, Validator.ANY);
+
+        CommandSpec spec = new CommandSpec("create", List.of(), List.of(timeout));
+
+        ParsedCommand parse = new ParsedCommand(spec, Map.of(), Map.of("timeout", "5"));
+
+        assertThrows(IllegalArgumentException.class, () -> parse.flag("timeout"));
+    }
+
+    @Test
+    void shouldRejectBooleanFlagAsValue() {
+        FlagsSpec force = new FlagsSpec("force", "f", false, Validator.ANY);
+
+        CommandSpec spec = new CommandSpec("create", List.of(), List.of(force));
+
+        ParsedCommand parsed = new ParsedCommand(spec, Map.of(), Map.of(
+                "force", ""));
+
+        assertThrows(IllegalArgumentException.class, () -> parsed.flagValue("force"));
     }
 }
